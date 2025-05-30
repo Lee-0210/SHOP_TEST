@@ -2,6 +2,7 @@
 <%@page import="shop.dto.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/layout/meta.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,10 +19,10 @@
 			<div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary">
 			    <ul class="nav nav-pills flex-column mb-auto">
 			      <!-- 로그인 시 -->
-			      <% if( login ) { %>
+<%-- 			      <% if( login ) { %> --%>
 			      	
 			      	
-			      <% } %>
+<%-- 			      <% } %> --%>
 			      <li>
 			        <a href="<%= root %>/user/order.jsp" class="nav-link link-body-emphasis">
 			          주문내역

@@ -1,6 +1,27 @@
 <%@page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+	String root = request.getContextPath();
+	String error = request.getParameter("error");
+	
+	// 이미 로그인한 경우
+	String loginId = (String) session.getAttribute("loginId");
+	loginId = loginId != null ? loginId : "";
+	
+	if( loginId != null && !loginId.equals("") ) {
+		response.sendRedirect(root + "/user/logged.jsp");
+	}
+	
+	// 아이디 저장 쿠키 가져오기
+	Cookie[] cookies = request.getCookies();
+	String rememberId = "";
+	for(Cookie cookie : cookies) {
+		if("rememberId".equals(cookie.getName())) {
+			rememberId = cookie.getValue();
+		}
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,22 +30,7 @@
 	<jsp:include page="/layout/meta.jsp" /> <jsp:include page="/layout/link.jsp" />
 </head>
 <body>   
-	<% 
-		String root = request.getContextPath();
-		String error = request.getParameter("error");
-		
-		// 이미 로그인한 경우
-		String loginId = (String) session.getAttribute("loginId");
-		loginId = loginId != null ? loginId : "";
-		
-		if( loginId != null && !loginId.equals("") ) {
-			response.sendRedirect(root + "/user/logged.jsp");
-		}
-		
-		// 아이디 저장 쿠키 가져오기
-		
-		
-	%>
+
 	<jsp:include page="/layout/header.jsp" />
 	<div class="px-4 py-5 mt-5 text-center">
 		<h1 class="display-5 fw-bold text-body-emphasis">로그인</h1>
@@ -81,7 +87,6 @@
 	    </div>
 	  </form>
 	</main>
-	
 	<jsp:include page="/layout/footer.jsp" />
 	<jsp:include page="/layout/script.jsp" />
 </body>

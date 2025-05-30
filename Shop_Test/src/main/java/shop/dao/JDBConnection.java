@@ -27,6 +27,7 @@ public class JDBConnection {
 		// MySQL
 		try {
 			ClassLoader classLoader = JDBConnection.class.getClassLoader();
+			System.out.println(classLoader);
 	        String projectRootPath = classLoader.getResource("").getPath();
 			Reader reader = new FileReader(projectRootPath + "/db.properties");
 			Properties properties = new Properties();

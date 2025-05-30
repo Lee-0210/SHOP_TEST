@@ -20,7 +20,6 @@
 		
 		boolean login = false;
 		if( loginId != null && !loginId.isEmpty() ) {
-			// response.sendRedirect(root);
 			login = true;
 		}
 		

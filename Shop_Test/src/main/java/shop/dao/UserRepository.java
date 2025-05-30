@@ -15,7 +15,26 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public int insert(User user) {
+		String sql = "INSERT INTO user (id, password, name, gender, birth, mail, phone, address) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		int result = 0;
 		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, user.getId());
+			psmt.setString(2, user.getPassword());
+			psmt.setString(3, user.getName());
+			psmt.setString(4, user.getGender());
+			psmt.setString(5, user.getBirth());
+			psmt.setString(6, user.getMail());
+			psmt.setString(7, user.getPhone());
+			psmt.setString(8, user.getAddress());
+			
+			result = psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	
@@ -26,11 +45,34 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public User login(String id, String pw) {
+		String sql = "SELECT * FROM user WHERE id = ? AND password = ?";
+		User user = null;
 		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, pw);
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				user = new User(rs.getString("id"), 
+							    rs.getString("password"), 
+							    rs.getString("name"), 
+							    rs.getString("gender"), 
+							    rs.getString("birth"),
+							    rs.getString("mail"),
+							    rs.getString("phone"),
+							    rs.getString("address"),
+							    rs.getString("regist_day"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return user;
 	}
-	
-	
-	
 	
 	/**
 	 * 로그인을 위한 사용자 조회
@@ -39,7 +81,31 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public User getUserById(String id) {
+		String sql = "SELECT * FROM user WHERE id = ?";
+		User user = null;
 		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				user = new User(rs.getString("id"), 
+							    rs.getString("password"), 
+							    rs.getString("name"), 
+							    rs.getString("gender"), 
+							    rs.getString("birth"),
+							    rs.getString("mail"),
+							    rs.getString("phone"),
+							    rs.getString("address"),
+							    rs.getString("regist_day"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return user;
 	}
 	
 	
@@ -49,7 +115,25 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public int update(User user) {
+		String sql = "UPDATE user SET name = ?, birth = ?, mail = ?, phone = ?, address = ?, gender = ? WHERE id = ?";
+		int result = 0;
 		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, user.getName());
+			psmt.setString(2, user.getBirth());
+			psmt.setString(3, user.getMail());
+			psmt.setString(4, user.getPhone());
+			psmt.setString(5, user.getAddress());
+			psmt.setString(6, user.getGender());
+			psmt.setString(7, user.getId());
+			
+			result = psmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 
@@ -59,7 +143,19 @@ public class UserRepository extends JDBConnection {
 	 * @return
 	 */
 	public int delete(String id) {
+		String sql = "DELETE FROM user WHERE id = ?";
+		int result = 0;
 		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, id);
+			
+			result = psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	/**
@@ -139,8 +235,6 @@ public class UserRepository extends JDBConnection {
 	    }
 	    return persistentLogin;
 	}
-
-
 	
 	
 	/**
