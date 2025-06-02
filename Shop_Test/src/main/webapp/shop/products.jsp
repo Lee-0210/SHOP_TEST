@@ -30,7 +30,7 @@
 				<a href="/shop/add.jsp" class="btn btn-primary btn-lg px-4 gap-3">상품
 					등록</a> <a href="/shop/editProducts.jsp"
 					class="btn btn-success btn-lg px-4 gap-3">상품 편집</a> <a
-					href="/shop/cart.jsp" class="btn btn-warning btn-lg px-4 gap-3">장바구니</a>
+					href="cart.jsp" class="btn btn-warning btn-lg px-4 gap-3">장바구니</a>
 
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 						<p><%=product.getDescription() %></p>
 						<p class="text-end price">₩ <%=product.getUnitPrice() %></p>
 						<p class="d-flex justify-content-between">
-							<a href="./cart_pro.jsp?id=P100001"
+							<a href="cart_pro.jsp?id=<%=product.getProductId() %>"
 								class="btn btn-outline-primary"><i
 								class="material-symbols-outlined">shopping_bag</i></a> <a
 								href="./product.jsp?id=<%=product.getProductId() %>" class="btn btn-outline-primary">상세

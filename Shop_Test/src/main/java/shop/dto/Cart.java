@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class Cart {
 
 	private String id;
+	private String name;
 	private int price;
 	private int totalUnit;
 	private int totalPrice;

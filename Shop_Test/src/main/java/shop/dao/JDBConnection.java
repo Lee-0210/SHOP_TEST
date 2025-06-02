@@ -32,6 +32,7 @@ public class JDBConnection {
 			Reader reader = new FileReader(projectRootPath + "/db.properties");
 			Properties properties = new Properties();
 			properties.load(reader);
+			System.out.println(properties.getProperty("id"));
 			
 			String driver = properties.getProperty("driver");
 			String url = properties.getProperty("url");

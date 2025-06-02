@@ -1,11 +1,11 @@
-\<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="shop.dto.Product"%>
 <%@page import="shop.dao.ProductRepository"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="shop.dto.Cart"%>
+<%@page import="java.util.List"%>
 <%@ include file="/layout/meta.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%
 	ProductRepository productRepository = new ProductRepository(); 	// Dao
 	String id = request.getParameter("id");							// 넘겨받은 id 파라미터
@@ -36,5 +36,5 @@
 		}
 	}
 	
-	response.sendRedirect(root + "/shop/product.jsp?id=" + id);
+	response.sendRedirect(root + "/shop/products.jsp");
 %>
