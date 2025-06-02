@@ -1,6 +1,11 @@
+<%@page import="shop.dto.Cart"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/layout/meta.jsp"%>
+<%
+	List<Cart> list = (List)session.getAttribute("cartList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,27 +38,33 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- 				<tr> -->
-				<!-- 					<td>상품01</td>			 -->
-				<!-- 					<td>10,000</td>			 -->
-				<!-- 					<td>5</td>			 -->
-				<!-- 					<td>50,000</td>			 -->
-				<!-- 					<td>-</td>			 -->
-				<!-- 				</tr> -->
-
+			<% if(list != null ) {
+				for(Cart cart : list) {%>
+			
+				<tr>
+					<td><%=cart.getName() %></td>			
+					<td><%=cart.getPrice() %></td>			
+					<td><%=cart.getTotalUnit() %></td>			
+					<td><%=cart.getTotalPrice() %></td>			
+					<td><a href="deleteCart.jsp?id=<%=cart.getId() %>" class="btn btn-sm btn-danger">삭제</a></td>			
+				</tr>
+			<%
+				}
+			}
+			%>
 			</tbody>
+			<%if(list == null || list.size() == 0) {%>
 			<tfoot>
-
 				<tr>
 					<td colspan="5">추가된 상품이 없습니다.</td>
 				</tr>
-
 			</tfoot>
+			<%}%>
 		</table>
 
 		<!-- 버튼 영역 -->
 		<div class="d-flex justify-content-between align-items-center p-3">
-			<a href="deleteCart.jsp?cartId=E9F03E624FF6F050C72CBB067E2F4BB7"
+			<a href="deleteCart.jsp?all=1"
 				class="btn btn-lg btn-danger ">전체삭제</a> <a href="javascript:;"
 				class="btn btn-lg btn-primary" onclick="order()">주문하기</a>
 		</div>
@@ -89,9 +100,14 @@
 			if( check ) {
 				location.href = 'ship.jsp?cartId=' + cartId
 			}
+		}
+		
+		// 단일 삭제 요청
+		function delOne() {
 			
 		}
 		
+		// 전체 삭제 요청
 		
 	
 	</script>

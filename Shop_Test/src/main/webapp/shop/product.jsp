@@ -71,7 +71,7 @@
 					</tbody>
 				</table>
 				<div class="mt-4">
-					<form name="addForm" action="./addCart.jsp" method="post">
+					<form name="addForm" action="<%=root %>/shop/addCart.jsp" method="post">
 						<input type="hidden" name="id" value="<%= product.getProductId()%>">
 						<div class="btn-box d-flex justify-content-end ">
 							<!-- [NEW] 장바구니 버튼 추가 -->
@@ -115,7 +115,6 @@
 			} else {
 				document.addForm.reset()
 			}
-
 		}
 	</script>
 	<%-- [Contents] ######################################################### --%>
