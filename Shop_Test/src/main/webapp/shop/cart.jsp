@@ -11,7 +11,6 @@
 <body>
 	<jsp:include page="/layout/header.jsp" />
 	<%-- [Contents] ######################################################### --%>
-
 	<div class="px-4 py-5 my-5 text-center">
 		<h1 class="display-5 fw-bold text-body-emphasis">장바구니</h1>
 		<div class="col-lg-6 mx-auto">
