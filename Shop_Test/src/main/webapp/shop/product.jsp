@@ -1,6 +1,13 @@
+<%@page import="shop.dto.Product"%>
+<%@page import="java.util.List"%>
+<%@page import="shop.dao.ProductRepository"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/layout/meta.jsp"%>
+<%
+	ProductRepository productRepository = new ProductRepository();
+	Product product = productRepository.getProductById(request.getParameter("id"));
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +37,7 @@
 				<img src="img?id=P100001" class="w-100 p-2">
 			</div>
 			<div class="col-md-6">
-				<h3 class="mb-5">자바 프로그래밍</h3>
+				<h3 class="mb-5"><%=product.getName() %></h3>
 				<table class="table">
 					<colgroup>
 						<col width="120px">
@@ -39,33 +46,33 @@
 					<tbody>
 						<tr>
 							<td>상품ID :</td>
-							<td>P100001</td>
+							<td><%=product.getProductId() %></td>
 						</tr>
 						<tr>
 							<td>제조사 :</td>
-							<td>알로하클래스</td>
+							<td><%=product.getManufacturer() %></td>
 						</tr>
 						<tr>
 							<td>분류 :</td>
-							<td>강의</td>
+							<td><%=product.getCategory() %></td>
 						</tr>
 						<tr>
 							<td>상태 :</td>
-							<td>OLD</td>
+							<td><%=product.getCondition() %></td>
 						</tr>
 						<tr>
 							<td>재고 수 :</td>
-							<td>98</td>
+							<td><%=product.getUnitsInStock() %></td>
 						</tr>
 						<tr>
 							<td>가격 :</td>
-							<td>50000</td>
+							<td><%=product.getUnitPrice() %></td>
 						</tr>
 					</tbody>
 				</table>
 				<div class="mt-4">
 					<form name="addForm" action="./addCart.jsp" method="post">
-						<input type="hidden" name="id" value="P100001">
+						<input type="hidden" name="id" value="<%= product.getProductId()%>">
 						<div class="btn-box d-flex justify-content-end ">
 							<!-- [NEW] 장바구니 버튼 추가 -->
 							<a href="./cart.jsp" class="btn btn-lg btn-warning mx-3">장바구니</a>
