@@ -22,6 +22,7 @@
 		list = new ArrayList<>();
 		list.add(newCart);
 		session.setAttribute("cartList", list);
+		System.out.println("장바구니 추가됨");
 	} else {
 		for(Cart item : list) {
 			if(item.getId().equals(id)) {

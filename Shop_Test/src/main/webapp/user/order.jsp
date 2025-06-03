@@ -1,9 +1,11 @@
+<%@page import="shop.dto.Order"%>
 <%@page import="shop.dao.OrderRepository"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="shop.dto.Product"%>
 <%@page import="java.util.List"%>
 <%@page import="shop.dao.UserRepository"%>
 <%@page import="shop.dto.User"%>
+<%@ include file="/layout/meta.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,12 +18,22 @@
 <body>   
 	<% 
 
-		// ...
-	
-	
-		// 주문 내역 목록을 세션에서 가져오기
+		String orderPhone = (String)request.getAttribute("phone");	
+		OrderRepository orderRepository = new OrderRepository();
 		
 		// 회원인 경우
+		boolean login = session.getAttribute("loginId") != null ? true : false;
+		
+		List<Product> orderList = null;
+		
+		if(login) {
+			orderList = orderRepository.list((String)session.getAttribute("loginId"));		
+		} else {
+			// 주문 내역 목록을 세션에서 가져오기
+			orderList = (List)session.getAttribute("notLoginList");
+		}
+		
+		int orderCount = orderList != null ? orderList.size() : 0;
 		
 		
 	%>

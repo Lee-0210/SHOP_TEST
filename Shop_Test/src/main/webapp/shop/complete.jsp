@@ -1,5 +1,87 @@
+<%@page import="shop.dao.ProductIORepository"%>
+<%@page import="shop.dto.Product"%>
+<%@page import="shop.dao.ProductRepository"%>
+<%@page import="shop.dao.OrderRepository"%>
+<%@page import="shop.dto.Cart"%>
+<%@page import="java.util.List"%>
+<%@page import="shop.dto.Ship"%>
+<%@page import="java.util.UUID"%>
+<%@page import="shop.dto.Order"%>
+<%@ include file="/layout/meta.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%	
+	List<Cart> list = (List)session.getAttribute("cartList");
+	int cartSum = list != null ? list.stream().map(e -> e.getTotalPrice()).reduce(0, (a,b) -> a + b) : 0;
+	Ship ship = (Ship)session.getAttribute("ship");
+	String cartId = UUID.randomUUID().toString();
+	
+	OrderRepository orderRepository = new OrderRepository();
+	ProductRepository productRepository = new ProductRepository();
+	ProductIORepository productIoRepository = new ProductIORepository();
+	
+	Order order = null;
+	String orderPw = request.getParameter("orderPw") != null ? request.getParameter("orderPw") : null;
+	// 비회원일 경우
+	if(orderPw != null && !orderPw.equals("")) {
+		order = Order.builder().cartId(cartId)
+							   .shipName(ship.getShipName())
+							   .zipCode(ship.getZipCode())
+							   .country(ship.getCountry())
+							   .address(ship.getAddress())
+							   .date(ship.getAddress())
+							   .totalPrice(cartSum)
+							   .phone(ship.getPhone())
+							   .orderPw(orderPw)
+							   .build();
+							   
+		orderRepository.insert(order);
+		
+		int orderNo = orderRepository.lastOrderNo(ship.getPhone(), orderPw);
+		for(Cart cart : list) {
+			Product product = Product.builder()
+									 .productId(cart.getId())
+									 .orderNo(orderNo)
+									 .quantity(cart.getTotalUnit())
+									 .type("출고") 
+									 .userId((String)session.getAttribute("loginId"))
+									 .build();
+				
+			productIoRepository.insert(product);
+		}
+	}
+	// 회원일 경우
+	else {
+		order = Order.builder().cartId(cartId)
+							   .shipName(ship.getShipName())
+							   .zipCode(ship.getZipCode())
+							   .country(ship.getCountry())
+							   .address(ship.getAddress())
+							   .date(ship.getAddress())
+							   .totalPrice(cartSum)
+							   .userId((String)session.getAttribute("loginId"))
+							   .build();
+		
+		orderRepository.insert(order);
+		
+		int orderNo = orderRepository.lastOrderNo((String)session.getAttribute("loginId"));
+		if(orderNo > 0) {		
+			for(Cart cart : list) {
+				Product product = Product.builder()
+										 .productId(cart.getId())
+										 .orderNo(orderNo)
+										 .quantity(cart.getTotalUnit())
+										 .type("출고") 
+										 .userId((String)session.getAttribute("loginId"))
+										 .build();
+					
+				productIoRepository.insert(product);
+			}
+		}
+	}
+	list.clear();
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,16 +107,16 @@
 			<table class="table ">
 				<tbody><tr>
 					<td>주문번호 :</td>
-					<td>A1839AE560F3E845BE454603D169E6DB</td>
+					<td><%=cartId %></td>
 				</tr>
 				<tr>
 					<td>배송지 :</td>
-					<td>sss</td>
+					<td><%=ship.getAddress() %></td>
 				</tr>
 			</tbody></table>
 			
 			<div class="btn-box d-flex justify-content-center">
-				<a href="/user/order.jsp" class="btn btn-primary btn-lg px-4 gap-3">주문내역</a>
+				<a href="<%=root %>/user/order.jsp" class="btn btn-primary btn-lg px-4 gap-3">주문내역</a>
 			</div>
 		</div>
 	</div>

@@ -5,6 +5,7 @@
 <%@ include file="/layout/meta.jsp"%>
 <%
 	List<Cart> list = (List)session.getAttribute("cartList");
+	int cartSum = list != null ? list.stream().map(e -> e.getTotalPrice()).reduce(0, (a,b) -> a + b) : 0;
 %>
 <!DOCTYPE html>
 <html>
@@ -26,8 +27,7 @@
 	<!-- 장바구니 영역 -->
 	<div class="container order">
 		<!-- 장바구니 목록 -->
-		<table
-			class="table table-striped table-hover table-bordered text-center align-middle">
+		<table class="table table-striped table-hover table-bordered text-center align-middle">
 			<thead>
 				<tr class="table-primary">
 					<th>상품</th>
@@ -53,14 +53,31 @@
 			}
 			%>
 			</tbody>
-			<%if(list == null || list.size() == 0) {%>
+			<%if(list == null) {%>
 			<tfoot>
 				<tr>
 					<td colspan="5">추가된 상품이 없습니다.</td>
 				</tr>
 			</tfoot>
-			<%}%>
+			<%}else if(list.size() == 0) {%>
+			<tfoot>
+				<tr>
+					<td colspan="5">추가된 상품이 없습니다.</td>
+				</tr>
+			</tfoot>
+			<%} else { %>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td>총액</td>
+					<td id="cart-sum"><%=cartSum %></td>
+					<td></td>
+				</tr>
+			</tfoot>
+			<%} %>
 		</table>
+		
 
 		<!-- 버튼 영역 -->
 		<div class="d-flex justify-content-between align-items-center p-3">
@@ -87,10 +104,11 @@
 
 	<script>
 		let cartId = 'E9F03E624FF6F050C72CBB067E2F4BB7'
-		let cartCount = '0'
+		let cartCount = <%=list != null ? list.size() : 0%>
 		let cartSum = document.getElementById('cart-sum')
 		
 		function order() {
+			console.log(cartCount)
 			if( cartCount == 0 ) {
 				alert('장바구니에 담긴 상품이 없습니다.')
 				return
