@@ -5,6 +5,7 @@
 <%@ include file="/layout/meta.jsp"%>
 <%
 List<Cart> list = (List) session.getAttribute("cartList");
+System.out.println(session.getId());
 %>
 <!DOCTYPE html>
 <html>
@@ -104,7 +105,7 @@ List<Cart> list = (List) session.getAttribute("cartList");
 
 
 	<script>
-		let cartId = "123"
+		let cartId = "<%= session.getId() %>"
 		let cartCount = <%=count%>
 		let cartSum = document.getElementById('cart-sum')
 		

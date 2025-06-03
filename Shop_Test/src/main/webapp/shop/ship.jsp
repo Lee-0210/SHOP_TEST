@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+System.out.println(session.getId());
+%>
 <html>
 <head>
 	<title>project💻 - ALOHA CLASS🌴</title>
@@ -17,7 +20,7 @@
 	<!-- 배송 정보 입력 -->
 	<div class="container shop mb-5 p-4">
 		<form action="ship_pro.jsp" class="form-horizontal" method="post">
-			<input type="hidden" name="cartId" value="FA39713B2D9CDC550C7D6F8EB7174645">
+			<input type="hidden" name="cartId" value="<%=session.getId()%>">
 			<div class="input-group mb-3 row">
 				<label class="input-group-text col-md-2" id="">성명</label>
 				<input type="text" class="form-control col-md-10" name="name" value="">
