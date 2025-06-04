@@ -13,7 +13,7 @@
 	
 	if(result != 0) {
 		System.out.println("상품 삭제 완료!");
-		response.sendRedirect(root + "/shop/products.jsp");
+		response.sendRedirect(root + "/shop/editProducts.jsp");
 	}
 	else {
 		response.getWriter().println("<script>alert('상품 삭제 실패');<script>");

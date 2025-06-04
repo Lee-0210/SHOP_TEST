@@ -11,9 +11,11 @@
 <!DOCTYPE html>
 <%
 		// 파일 업로드 경로
-		String uploadPath = "C:/KGW/GITHUB/SHOP_TEST/Shop_Test/src/main/webapp/static/img";
+		String uploadPath = application.getRealPath("/static/img");
 		File uploadDir = new File(uploadPath); // 해당 경로에 대한 File 객체 생성
 		String path = "/static/img/";
+		System.out.println(uploadDir);
+		System.out.println(uploadPath);
 		
 		
 		// 해당 경로가 존재하지 않으면 폴더 생성
