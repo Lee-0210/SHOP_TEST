@@ -4,8 +4,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/layout/meta.jsp"%>
 <%
-	List<Cart> list = (List)session.getAttribute("cartList");
-	int cartSum = list != null ? list.stream().map(e -> e.getTotalPrice()).reduce(0, (a,b) -> a + b) : 0;
+List<Cart> list = (List) session.getAttribute("cartList");
+System.out.println(session.getId());
 %>
 <!DOCTYPE html>
 <html>
@@ -37,53 +37,55 @@
 					<th>비고</th>
 				</tr>
 			</thead>
-			<tbody>
-			<% if(list != null ) {
-				for(Cart cart : list) {%>
-			
-				<tr>
-					<td><%=cart.getName() %></td>			
-					<td><%=cart.getPrice() %></td>			
-					<td><%=cart.getTotalUnit() %></td>			
-					<td><%=cart.getTotalPrice() %></td>			
-					<td><a href="deleteCart.jsp?id=<%=cart.getId() %>" class="btn btn-sm btn-danger">삭제</a></td>			
-				</tr>
 			<%
-				}
+			int count = 0;
+			int sum = 0;
+			if (list != null && !list.isEmpty()) {
+				for (Cart cart : list) {
+					sum += cart.getPrice();
+					count++;
+			%>
+			<tbody>
+				<tr>
+					<td><%=cart.getName()%></td>
+					<td><%=cart.getPrice()%></td>
+					<td><%=cart.getTotalUnit()%></td>
+					<td><%=cart.getTotalPrice()%></td>
+					<td><a href="deleteCart.jsp?id=<%=cart.getId()%>"
+						class="btn btn-sm btn-danger">삭제</a></td>
+				</tr>
+			</tbody>
+			<%
 			}
 			%>
-			</tbody>
-			<%if(list == null) {%>
-			<tfoot>
-				<tr>
-					<td colspan="5">추가된 상품이 없습니다.</td>
-				</tr>
-			</tfoot>
-			<%}else if(list.size() == 0) {%>
-			<tfoot>
-				<tr>
-					<td colspan="5">추가된 상품이 없습니다.</td>
-				</tr>
-			</tfoot>
-			<%} else { %>
 			<tfoot>
 				<tr>
 					<td></td>
 					<td></td>
 					<td>총액</td>
-					<td id="cart-sum"><%=cartSum %></td>
+					<td id="cart-sum"><%=sum%></td>
 					<td></td>
 				</tr>
 			</tfoot>
-			<%} %>
+			<%
+			} else {
+			%>
+			<tfoot>
+				<tr>
+					<td colspan="5">추가된 상품이 없습니다.</td>
+				</tr>
+			</tfoot>
+			<%
+			}
+			%>
 		</table>
 		
 
 		<!-- 버튼 영역 -->
 		<div class="d-flex justify-content-between align-items-center p-3">
-			<a href="deleteCart.jsp?all=1"
-				class="btn btn-lg btn-danger ">전체삭제</a> <a href="javascript:;"
-				class="btn btn-lg btn-primary" onclick="order()">주문하기</a>
+			<a href="deleteCart.jsp?all=1" class="btn btn-lg btn-danger ">전체삭제</a>
+			<a href="javascript:;" class="btn btn-lg btn-primary"
+				onclick="order()">주문하기</a>
 		</div>
 	</div>
 
@@ -103,12 +105,12 @@
 
 
 	<script>
-		let cartId = 'E9F03E624FF6F050C72CBB067E2F4BB7'
-		let cartCount = <%=list != null ? list.size() : 0%>
+		let cartId = "<%= session.getId() %>"
+		let cartCount = <%=count%>
 		let cartSum = document.getElementById('cart-sum')
 		
 		function order() {
-			console.log(cartCount)
+			console.log(cartId)
 			if( cartCount == 0 ) {
 				alert('장바구니에 담긴 상품이 없습니다.')
 				return
