@@ -1,5 +1,15 @@
+<%@page import="shop.dto.Cart"%>
+<%@page import="java.util.List"%>
+<%@page import="shop.dto.Ship"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/layout/meta.jsp"%>
+<%
+	String loginId = (String)session.getAttribute("loginId");
+	Ship ship = (Ship)session.getAttribute("ship");
+	List<Cart> list = (List)session.getAttribute("cartList");
+	int cartSum = list != null ? list.stream().map(e -> e.getTotalPrice()).reduce(0, (a,b) -> a + b) : 0;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,35 +32,36 @@
 			<table class="table ">
 				<tbody><tr>
 					<td>주문 형태 :</td>
-					<td>비회원 주문</td>
+					<td><%=loginId != null ? "회원 주문" : "비회원 주문" %></td>
 				</tr>
 				<tr>
 					<td>성 명 :</td>
-					<td>테스트</td>
+					<td><%=ship.getShipName() %></td>
 				</tr>
 				<tr>
 					<td>우편번호 :</td>
-					<td>aaa</td>
+					<td><%=ship.getZipCode() %></td>
 				</tr>
 				<tr>
 					<td>주소 :</td>
-					<td>sss</td>
+					<td><%=ship.getAddress() %></td>
 				</tr>
 				<tr>
 					<td>배송일 :</td>
-					<td>1111</td>
+					<td><%=ship.getDate() %></td>
 				</tr>
 				<tr>
 					<td>전화번호 :</td>
-					<td>111</td>
+					<td><%=ship.getPhone() %></td>
 				</tr>
-				
+				<%if(loginId == null) { %>
 				<tr>
 					<td>주문 비밀번호 :</td>
 					<td>
 						<input type="password" class="form-control" name="orderPw">
 					</td>
 				</tr>
+				<%} %>
 				
 			</tbody></table>
 		</div>
@@ -68,26 +79,24 @@
 					</tr>
 				</thead>
 				<tbody>
-					
-					<tr>
-						<td>오라클 데이터베이스</td>			
-						<td>20000</td>			
-						<td>1</td>			
-						<td>20000</td>			
-						<td></td>			
-					</tr>
-					
+				<%for(Cart cart : list) {%>
+				<tr>
+					<td><%=cart.getName() %></td>			
+					<td><%=cart.getPrice() %></td>			
+					<td><%=cart.getTotalUnit() %></td>			
+					<td><%=cart.getTotalPrice() %></td>			
+					<td></td>			
+				</tr>
+				<%}%>
 				</tbody>
 				<tfoot>
-					
 					<tr>
 						<td></td>
 						<td></td>
 						<td>총액</td>
-						<td>20000</td>
+						<td><%=cartSum %></td>
 						<td></td>
 					</tr>
-					
 				</tfoot>
 			</table>
 	

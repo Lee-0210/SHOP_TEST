@@ -27,8 +27,7 @@ System.out.println(session.getId());
 	<!-- 장바구니 영역 -->
 	<div class="container order">
 		<!-- 장바구니 목록 -->
-		<table
-			class="table table-striped table-hover table-bordered text-center align-middle">
+		<table class="table table-striped table-hover table-bordered text-center align-middle">
 			<thead>
 				<tr class="table-primary">
 					<th>상품</th>
@@ -80,6 +79,7 @@ System.out.println(session.getId());
 			}
 			%>
 		</table>
+		
 
 		<!-- 버튼 영역 -->
 		<div class="d-flex justify-content-between align-items-center p-3">
