@@ -136,14 +136,14 @@
 							   .condition(condition)
 							   .file(path + uploadedName)
 							   .build();
-	int result = productRepository.insert(product);
+	int result = productRepository.update(product);
 	
 	if(result != 0) {
-		System.out.println("상품 등록 완료!");
+		System.out.println("상품 수정 완료!");
 		response.sendRedirect(root + "/shop/products.jsp");
 	}
 	else {
-		response.getWriter().println("<script>alert('상품 등록 실패');<script>");
+		response.getWriter().println("<script>alert('상품 수정 실패');<script>");
 		request.getRequestDispatcher(root + "/shop/products.jsp").forward(request, response);
 	}
 	

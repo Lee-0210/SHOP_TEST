@@ -163,7 +163,7 @@ public class ProductRepository extends JDBConnection {
 	 */
 	public int update(Product product) {
 		int result = 0;
-		String sql = "UPDATE product SET condition = ?, file = ?, name = ?, unit_price = ?, description = ?, manufacturer = ?, category = ?,"
+		String sql = "UPDATE product SET `condition` = ?, file = ?, name = ?, unit_price = ?, description = ?, manufacturer = ?, category = ?,"
 					+ "units_in_stock = ? WHERE product_id = ?";
 		
 		try {

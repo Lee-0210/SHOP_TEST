@@ -36,7 +36,7 @@ public class ImgServlet extends HttpServlet {
 		// 프로젝트 내 img 경로 가져오기
 		ServletContext context = getServletContext();
 		String imgPath = context.getRealPath("/static/img");
-
+		String myPath = request.getContextPath()+"/src/main/webapp/static/img";
 		String id = request.getParameter("id");
 		System.out.println("id : " + id);
 		
@@ -47,12 +47,14 @@ public class ImgServlet extends HttpServlet {
 		
 		// 상품 이미지가 없을 때, 기본 이미지로 응답
 		if( file == null || file.equals("") ) {
-			file = imgPath + "/no-image.jpg";
+//			file = imgPath + "/no-image.jpg";
+			file = myPath + "/no-image.jpg";
 		}
 		
 		if( file.contains("static/img") ) {
 			String rootPath = context.getRealPath("/");
-			file = rootPath + "/" + file;
+//			file = rootPath + "/" + file;
+			file = myPath + "/" + file;
 		}
 		
 		String ext = file.substring( file.lastIndexOf(".") + 1 ).toUpperCase();
