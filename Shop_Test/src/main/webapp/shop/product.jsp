@@ -34,7 +34,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<!-- [NEW] 썸네일 이미지 요청하기 추가 -->
-				<img src="img?id=P100001" class="w-100 p-2">
+				<img src="img?id=<%=product.getProductId() %>" class="w-100 p-2">
 			</div>
 			<div class="col-md-6">
 				<h3 class="mb-5"><%=product.getName() %></h3>
