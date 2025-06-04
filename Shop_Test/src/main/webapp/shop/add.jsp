@@ -42,8 +42,8 @@
 			</div>
 
 			<div class="input-group mb-3 row">
-				<label class="input-group-text col-md-2" id="">가격</label> <input
-					type="number" class="form-control col-md-10" name="unitPrice">
+				<label class="input-group-text col-md-2" id="">가격</label> 
+				<input type="number" class="form-control col-md-10" name="unitPrice"/>
 			</div>
 			<div class="input-group mb-3 row">
 				<label class="input-group-text w-100" id="">상세 정보</label>
@@ -99,11 +99,6 @@
 	</div>
 
 
-
-	<footer class="container p-5">
-		<p class="text-center">Copyright ⓒ ALOHA CLASS. All Rights
-			Reserved</p>
-	</footer>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

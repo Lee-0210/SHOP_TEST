@@ -27,7 +27,7 @@
 			<p class="lead mb-4">쇼핑몰 상품 목록 입니다.</p>
 			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
 
-				<a href="/shop/add.jsp" class="btn btn-primary btn-lg px-4 gap-3">상품
+				<a href="<%= root %>/shop/add.jsp" class="btn btn-primary btn-lg px-4 gap-3">상품
 					등록</a> <a href="/shop/editProducts.jsp"
 					class="btn btn-success btn-lg px-4 gap-3">상품 편집</a> <a
 					href="cart.jsp" class="btn btn-warning btn-lg px-4 gap-3">장바구니</a>
@@ -64,11 +64,6 @@
 			<% } %>
 		</div>
 	</div>
-
-	<footer class="container p-5">
-		<p class="text-center">Copyright ⓒ ALOHA CLASS. All Rights
-			Reserved</p>
-	</footer>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

@@ -42,7 +42,7 @@ System.out.println(session.getId());
 			int sum = 0;
 			if (list != null && !list.isEmpty()) {
 				for (Cart cart : list) {
-					sum += cart.getPrice();
+					sum += cart.getTotalPrice();
 					count++;
 			%>
 			<tbody>

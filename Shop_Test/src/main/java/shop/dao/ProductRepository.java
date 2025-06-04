@@ -131,7 +131,28 @@ public class ProductRepository extends JDBConnection {
 	 * @return
 	 */
 	public int insert(Product product) {
+		int result = 0;
+		String sql = "INSERT INTO product (product_id, name, unit_price, description, manufacturer, category, units_in_stock, `condition`, file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, product.getProductId());
+			psmt.setString(2, product.getName());
+			psmt.setLong(3, product.getUnitPrice());
+			psmt.setString(4, product.getDescription());
+			psmt.setString(5, product.getManufacturer());
+			psmt.setString(6, product.getCategory());
+			psmt.setLong(7, product.getUnitsInStock());
+			psmt.setString(8, product.getCondition());
+			psmt.setString(9, product.getFile());
+			
+			result = psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+				
 	}
 	
 	
@@ -141,7 +162,28 @@ public class ProductRepository extends JDBConnection {
 	 * @return
 	 */
 	public int update(Product product) {
+		int result = 0;
+		String sql = "UPDATE product SET condition = ?, file = ?, name = ?, unit_price = ?, description = ?, manufacturer = ?, category = ?,"
+					+ "units_in_stock = ? WHERE product_id = ?";
 		
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, product.getCondition());
+			psmt.setString(2, product.getFile());
+			psmt.setString(3, product.getName());
+			psmt.setLong(4, product.getUnitPrice());
+			psmt.setString(5, product.getDescription());
+			psmt.setString(6, product.getManufacturer());
+			psmt.setString(7, product.getCategory());
+			psmt.setLong(8, product.getUnitsInStock());
+			psmt.setString(9, product.getProductId());
+			
+			result = psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	
@@ -152,7 +194,18 @@ public class ProductRepository extends JDBConnection {
 	 * @return
 	 */
 	public int delete(String productId) {
+		int result = 0;
+		String sql = "DELETE FROM product WHERE product_id = ?";
+		try {
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, productId );
+			
+			result = psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+		return result;
 	}
 
 }
