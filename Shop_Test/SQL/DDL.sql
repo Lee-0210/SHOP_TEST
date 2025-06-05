@@ -57,6 +57,7 @@ CREATE TABLE product (
 	`condition` varchar(100) NULL COMMENT '상태',
 	file TEXT NULL COMMENT '파일경로',
 	quantity INT DEFAULT 0 NOT NULL COMMENT '장바구니 개수', 
+	is_active TINYINT NOT NULL DEFAULT 1 COMMENT '판매 중인지',
 	CONSTRAINT product_pk PRIMARY KEY (product_id)
 ) COMMENT '상품';
 
@@ -110,8 +111,8 @@ CREATE TABLE `product_io` (
   PRIMARY KEY (`io_no`),
   KEY `product_id_FK` (`product_id`),
   KEY `product_id_FK_1` (`order_no`),
-  CONSTRAINT `product_id_FK` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),
-  CONSTRAINT `order_no_FK` FOREIGN KEY (`order_no`) REFERENCES `order` (`order_no`)
+  CONSTRAINT `product_id_FK` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE,
+  CONSTRAINT `order_no_FK` FOREIGN KEY (`order_no`) REFERENCES `order` (`order_no`) ON DELETE CASCADE
 ) COMMENT='상품 입출고';
 
 
